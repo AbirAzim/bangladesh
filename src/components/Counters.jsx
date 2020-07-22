@@ -5,6 +5,24 @@ class Counters extends Component {
   state = {
     history: [],
     isShown: false,
+    counters: [
+      {
+        id: 1,
+        value: 0,
+      },
+      {
+        id: 2,
+        value: 0,
+      },
+      {
+        id: 3,
+        value: 0,
+      },
+      {
+        id: 4,
+        value: 0,
+      },
+    ],
   };
 
   historyAdded = (historyChange) => {
@@ -20,22 +38,18 @@ class Counters extends Component {
   render() {
     return (
       <div>
-        <CounterComponent
-          history={this.state.history}
-          historyAdded={this.historyAdded}
-        />
-        <CounterComponent
-          historyAdded={this.historyAdded}
-          history={this.state.history}
-        />
-        <CounterComponent
-          historyAdded={this.historyAdded}
-          history={this.state.history}
-        />
-        <CounterComponent
-          historyAdded={this.historyAdded}
-          history={this.state.history}
-        />
+        {this.state.counters.map((counter) => {
+          return (
+            <CounterComponent
+              history={this.state.history}
+              historyAdded={this.historyAdded}
+              add
+              key={counter.id}
+              valueIndex={counter.id}
+              value={counter.value}
+            />
+          );
+        })}
         <button className={'btn btn-primary'} onClick={this.clickHandler}>
           {this.state.isShown ? 'Hide All History' : 'Show All History'}
         </button>
