@@ -25,6 +25,15 @@ class Counters extends Component {
     ],
   };
 
+  handleDelete = (id) => {
+    const { counters } = this.state;
+    const data = counters.filter((counter) => counter.id !== id);
+
+    this.setState({
+      counters: data,
+    });
+  };
+
   historyAdded = (historyChange) => {
     this.setState({ history: historyChange() });
   };
@@ -35,6 +44,13 @@ class Counters extends Component {
     });
   };
 
+  addToHistory = (id) => {
+    const {history} = this.state;
+    let his = [`item ${id} is cancelled`, ...history ]
+
+    this.setState({history : his})
+  };
+
   render() {
     return (
       <div>
@@ -43,10 +59,11 @@ class Counters extends Component {
             <CounterComponent
               history={this.state.history}
               historyAdded={this.historyAdded}
-              add
               key={counter.id}
               valueIndex={counter.id}
               value={counter.value}
+              onDelete={this.handleDelete}
+              addToHistory={this.addToHistory}
             />
           );
         })}

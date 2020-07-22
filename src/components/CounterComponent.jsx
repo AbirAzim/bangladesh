@@ -35,8 +35,14 @@ export class CounterComponent extends Component {
     return this.state.value === 0 ? 'Zero' : this.state.value;
   };
 
+  getBadgeClasses() {
+    let badgeClasses = 'mr-3 badge badge-';
+    badgeClasses += this.state.value === 0 ? 'warning' : 'primary';
+    return badgeClasses;
+  }
+
   render() {
-    const { history, historyAdded, valueIndex } = this.props;
+    const { history, historyAdded, valueIndex, onDelete, addToHistory } = this.props;
 
     return (
       <React.Fragment>
@@ -54,15 +60,19 @@ export class CounterComponent extends Component {
           >
             Increment
           </button>
+          <button
+            className='btn btn-warning ml-3's
+            onClick={() => {
+              onDelete(valueIndex)
+              addToHistory(valueIndex)
+            }
+          }
+          >
+            Delete
+          </button>
         </div>
       </React.Fragment>
     );
-  }
-
-  getBadgeClasses() {
-    let badgeClasses = 'mr-3 badge badge-';
-    badgeClasses += this.state.value === 0 ? 'warning' : 'primary';
-    return badgeClasses;
   }
 }
 
